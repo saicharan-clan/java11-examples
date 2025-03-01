@@ -19,15 +19,15 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          role-to-assume: arn:aws:iam::065309464979:role/CodeGuruSecurityGitHubAccessRole
-          aws-region: us-east-1
+          role-to-assume: arn:aws:iam::ACCOUNT_ID:role/CodeGuruSecurityGitHubAccessRole
+          aws-region: AWS_REGION
           role-session-name: GitHubActionScript
       
       - name: Run CodeGuru Security Scan
         uses: aws-actions/codeguru-security@v1
         with:
           source_path: .
-          aws_region: us-east-1
+          aws_region: AWS_REGION
           fail_on_severity: Critical
       
       - name: Print Findings
@@ -39,4 +39,3 @@ jobs:
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: codeguru-security-results.sarif.json
-
